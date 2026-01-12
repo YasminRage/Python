@@ -1,0 +1,48 @@
+{% extends "learning_logs/base.html" %}
+
+{% block page_header %}
+<div class="p-4 mb-4 bg-light border rounded-3">
+    <div class="container-fluid py-4 text-center">
+        <h1 class="display-4">Yasmin’s Learning Log</h1>
+        <p class="lead mt-3">
+            Track what you’re learning, one topic at a time.
+        </p>
+
+        {% if user.is_authenticated %}
+            <a class="btn btn-primary btn-lg mt-3"
+               href="{% url 'learning_logs:topics' %}">
+                View Topics
+            </a>
+        {% else %}
+            <a class="btn btn-outline-primary btn-lg mt-3"
+               href="{% url 'login' %}">
+                Log in to get started
+            </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock page_header %}
+
+{% block content %}
+<div class="container text-center">
+    <h3 class="mb-4">Quick Links</h3>
+
+    <div class="d-flex justify-content-center gap-4">
+        <a class="btn btn-outline-secondary"
+           href="{% url 'learning_logs:index' %}">
+            Home
+        </a>
+
+        <a class="btn btn-outline-secondary"
+           href="{% url 'learning_logs:topics' %}">
+            Topics
+        </a>
+    </div>
+
+    {% if user.is_authenticated %}
+        <p class="mt-4 text-muted">
+            Logged in as <strong>{{ user.username }}</strong>
+        </p>
+    {% endif %}
+</div>
+{% endblock content %}
