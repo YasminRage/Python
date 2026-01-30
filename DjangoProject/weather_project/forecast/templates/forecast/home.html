@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Yasmin's Weather App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .city {
+            border: 1px solid #ccc;
+            padding: 20px;
+            text-align: center;
+            width: 45%;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 15px;
+            border-radius: 8px;
+        }
+        p {
+            margin: 8px 0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Yasmin's Weather App</h1>
+    <div class="container">
+        {% for weather in weather_list %}
+        <div class="city">
+            <h2>{{ weather.city }} {{ weather.flag }}</h2>
+            <p>Condition: {{ weather.condition }} {{ weather.condition_emoji }}</p>
+            <p>Temperature: {{ weather.temp }}°C {{ weather.temp_emoji }}</p>
+            <p>{{ weather.tip }}</p>
+            {% if weather.gif_url %}
+            <img src="{% static weather.gif_url %}" alt="Weather GIF">
+            {% endif %}
+
+            <!-- Daily forecast section -->
+            <h3>Daily Forecast</h3>
+            <ul>
+                {% for slot in weather.daily_forecast %}
+                <li>
+                    <strong>{{ slot.time }}:</strong>
+                    {{ slot.condition }} {{ slot.condition_emoji }},
+                    Temp: {{ slot.temp }}°C,
+                    Tip: {{ slot.tip }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

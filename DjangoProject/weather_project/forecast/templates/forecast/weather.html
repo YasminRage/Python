@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+</head>
+<body>
+
+<h1>Weather App</h1>
+
+{% for w in results %}
+    <div>
+        <h2>{{ w.city }}</h2>
+        <p>{{ w.temp }}°C — {{ w.description }}</p>
+        <img src="{% static w.icon %}" width="100">
+    </div>
+{% endfor %}
+
+</body>
+</html>
